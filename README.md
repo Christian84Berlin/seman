@@ -45,7 +45,7 @@ SemAn is designed as a lightweight middleware library:
 ```mermaid
 graph LR
     A[Client App] -->|Sensitive Data| B(SemAn Middleware)
-    B -->|Anonymized Context| C[LLM API (e.g. Claude/GPT)]
+    B -->|Anonymized Context| C[LLM API e.g. Claude/GPT]
     C -->|Response| B
     B -->|Response| A
 ```
