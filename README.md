@@ -50,12 +50,21 @@ graph LR
     B -->|Response| A
 ```
 
-## Installation
+## Development & Setup
+
+This project is currently in the prototype phase. To use it locally:
 
 ```bash
-npm install seman
-# or
-yarn add seman
+# Clone the repository
+git clone https://github.com/Christian84Berlin/seman.git
+
+# Install dependencies
+cd seman
+npm install
+
+# Run the demo
+npm run build
+npx ts-node examples/finavi-demo.ts
 ```
 
 ## Usage with Presets
