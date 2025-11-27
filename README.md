@@ -31,6 +31,10 @@ The LLM receives "User has critical liquidity and high indebtedness" instead of 
   - `RangeBucket`: Map numbers to categories (e.g., Age 30-35 -> "Early Career").
   - `FuzzyDate`: Shift dates or reduce precision (e.g., "2023-05-12" -> "2023-Q2").
   - `CategoryMapping`: Map specific values to broader groups.
+- **Standard Presets:** Built-in configurations for common domains to speed up integration:
+  - `GermanFinancePreset`: Standardized buckets for German income, wealth, and pension data.
+  - `HealthPreset` (Planned): ICD-10 mappings and health data categorization.
+  - `HRPreset` (Planned): Salary bands and role generalizations.
 - **Preservation Layer:** Ensures logical consistency between fields is maintained (e.g., start_date < end_date).
 - **Re-Identification Risk Check:** Basic validation to warn about potential uniqueness.
 
@@ -54,35 +58,36 @@ npm install seman
 yarn add seman
 ```
 
-## Usage (Concept)
+## Usage with Presets
+
+SemAn comes with "batteries included" for specific domains. Here is how to use the **German Finance Preset**:
 
 ```typescript
-import { SemAn, Schema } from 'seman';
+import { SemAn, Schema, GermanFinancePreset } from 'seman';
 
-// 1. Define the anonymization schema
+// 1. Define Schema using built-in Presets
 const userSchema = Schema.object({
-  age: Schema.number().transform('RangeBucket', { 
-    buckets: [18, 25, 35, 50, 65], 
-    labels: ['Student', 'Young Pro', 'Mid-Career', 'Senior', 'Retiree'] 
-  }),
-  savings: Schema.number().transform('FuzzyCategory', {
-    rules: [
-      { max: 1000, label: 'Low' },
-      { max: 10000, label: 'Medium' },
-      { min: 10000, label: 'High' }
-    ]
-  })
+  age: GermanFinancePreset.ageClass, // Maps 34 -> "30-34"
+  netWorth: GermanFinancePreset.netWorthStatus, // Maps 125k -> "Medium"
+  pensionGap: GermanFinancePreset.gapCategory, // Maps 1200 -> "Medium Gap"
+  
+  // Custom rules can be mixed in
+  customField: Schema.number().transform('RangeBucket', { ... })
 });
 
 // 2. Initialize Engine
 const anonymizer = new SemAn(userSchema);
 
 // 3. Transform Data
-const rawData = { age: 32, savings: 4500 };
-const cleanContext = anonymizer.anonymize(rawData);
+const sensitiveData = { 
+  age: 34, 
+  netWorth: 125000,
+  pensionGap: 1200 
+};
 
+const cleanContext = anonymizer.anonymize(sensitiveData);
 console.log(cleanContext);
-// Output: { age: "Young Pro", savings: "Medium" }
+// Output: { age: "30-34", netWorth: "mittel", pensionGap: "mittel" }
 ```
 
 ## Roadmap
@@ -96,4 +101,3 @@ console.log(cleanContext);
 ## License
 
 MIT
-

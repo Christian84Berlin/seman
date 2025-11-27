@@ -1,5 +1,5 @@
 import { SchemaField } from './schema';
-import { RangeBucketTransformer, ValueMapperTransformer } from './transformers/index';
+import { RangeBucketTransformer, ValueMapperTransformer, FuzzyDateTransformer } from './transformers/index';
 
 export class SemAn {
   private schema: SchemaField;
@@ -11,7 +11,8 @@ export class SemAn {
     
     this.transformers = {
       'RangeBucket': new RangeBucketTransformer(),
-      'ValueMapper': new ValueMapperTransformer()
+      'ValueMapper': new ValueMapperTransformer(),
+      'FuzzyDate': new FuzzyDateTransformer()
     };
   }
 

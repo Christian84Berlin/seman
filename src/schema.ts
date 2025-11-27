@@ -1,10 +1,10 @@
-import { RangeBucketOptions, ValueMapperOptions } from './transformers/index';
+import { RangeBucketOptions, ValueMapperOptions, FuzzyDateOptions } from './transformers/index';
 
-export type TransformType = 'RangeBucket' | 'ValueMapper';
+export type TransformType = 'RangeBucket' | 'ValueMapper' | 'FuzzyDate';
 
 export interface TransformerConfig {
   type: TransformType;
-  options?: RangeBucketOptions | ValueMapperOptions;
+  options?: RangeBucketOptions | ValueMapperOptions | FuzzyDateOptions;
 }
 
 export interface SchemaField {
