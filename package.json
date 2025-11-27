@@ -1,0 +1,35 @@
+{
+  "name": "seman",
+  "version": "0.1.0-alpha",
+  "description": "Semantic Anonymizer - Context-preserving data anonymization for LLM applications",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint src/**/*.ts"
+  },
+  "keywords": [
+    "anonymization",
+    "privacy",
+    "llm",
+    "ai",
+    "gdpr",
+    "semantic",
+    "typescript"
+  ],
+  "author": "Christian Westermeier",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^5.0.0",
+    "@types/node": "^18.0.0",
+    "jest": "^29.0.0",
+    "ts-jest": "^29.0.0",
+    "@types/jest": "^29.0.0",
+    "eslint": "^8.0.0"
+  },
+  "dependencies": {
+    "zod": "^3.21.0"
+  }
+}
+
